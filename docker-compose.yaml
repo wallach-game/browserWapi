@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  browser-api:
+    build: .
+    container_name: browser_api
+    ports:
+      - "8000:8000"   # FastAPI
+      - "6080:6080"   # noVNC
+      - "5900:5900"   # VNC
+    volumes:
+      - ./app.py:/app/app.py
+      - playwright_data:/root/.cache/ms-playwright
+    environment:
+      WEB_PORT: 6080
+    stdin_open: true
+    tty: true
+
+volumes:
+  playwright_data:
