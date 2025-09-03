@@ -3,7 +3,7 @@ version: "3.9"
 services:
   browser-api:
     build: .
-    container_name: browser_api
+    container_name: wallachgame/browserwapi:0.0.1
     ports:
       - "8000:8000"   # FastAPI
       - "6080:6080"   # noVNC
