@@ -11,18 +11,25 @@ git clone https://github.com/wallach-game/browserWapi.git
 ```
 ## Set up your routes
 
-```python
-# open file app.py
-@app.get("/open")
-async def open_page():
-    page = await browser.new_page()
-    #open any webpage
-    await page.goto("https://example.com")
-    #use any playwrithe cmd to do what ever you want
-    title = await page.title()
-    #return the data you want
-    return {"title": title}
+Routes, target URLs and extraction logic are configured through the
+`SCRAPE_ROUTES` environment variable (see `docker-compose.yaml`). It's a
+JSON array, one object per route:
+
+```json
+[
+  {"path": "/open", "url": "https://example.com", "extract": "title"},
+  {"path": "/headline", "url": "https://news.example.com", "extract": "text", "selector": "h1"},
+  {"path": "/link", "url": "https://example.com", "extract": "attribute", "selector": "a", "attribute": "href"}
+]
 ```
+
+Supported `extract` types:
+- `title` - page title
+- `text` - inner text of `selector` (or `body` if omitted)
+- `html` - inner HTML of `selector` (or `html` if omitted)
+- `attribute` - value of `attribute` on `selector` (both required)
+
+If `SCRAPE_ROUTES` is not set, the demo `/open` route above is used.
 
 ## Run the browser api
 ```bash

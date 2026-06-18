@@ -13,6 +13,10 @@ services:
       - playwright_data:/root/.cache/ms-playwright
     environment:
       WEB_PORT: 6080
+      SCRAPE_ROUTES: >-
+        [
+          {"path": "/open", "url": "https://example.com", "extract": "title"}
+        ]
     stdin_open: true
     tty: true
 
