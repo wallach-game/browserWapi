@@ -10,6 +10,7 @@ services:
       - "5900:5900"   # VNC
     volumes:
       - ./app.py:/app/app.py
+      - ./routes.py:/app/routes.py
       - playwright_data:/root/.cache/ms-playwright
     environment:
       WEB_PORT: 6080
